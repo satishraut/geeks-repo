@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %} Index {% endblock title %}
+
+{% block body %}
+<div class="group button-group mt-1">
+<a href="{% url 'displya-laptop' %}" class="btn btn-primary btn-md btn-trim" role="button"> Laptop</a>
+<a href="{% url 'add-laptop' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+<a href="{% url 'displya-desktop' %}" class="btn btn-primary btn-md btn-trim" role="button"> Desktop</a>
+<a href="{% url 'add-desktop' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+
+
+<a href="{% url 'displya-mobile' %}" class="btn btn-primary btn-md btn-trim" role="button"> Mobiles</a>
+<a href="{% url 'add-mobile' %}" class="btn btn-warning btn-sm btn-pad" role="button"> +</a>
+</div>
+<hr>
+You curruntly viewing <b class="text-success">{{device}}</b>
+<table class="table table-hover mt-2">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for item in items %}
+    <tr>
+    <td>{{item.pk}}</td>
+    <td>{{item.type}}</td>
+    <td>{{item.price}}</td>
+    <td>{{item.status}}</td>
+    <td>{{item.issue}}</td>
+
+    {% if device|lower == "laptops" %}
+        <td>
+            <a href="{% url 'edit-laptop' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete-laptop' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% elif device|lower == "desktop" %}
+        <td>
+            <a href="{% url 'edit-desktop' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete-desktop' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% else %}
+        <td>
+            <a href="{% url 'edit-mobile' item.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete-mobile' item.pk%}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > x</a>
+        </td>
+        {% endif %}
+
+
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock body %}
